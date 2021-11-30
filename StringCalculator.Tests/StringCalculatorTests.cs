@@ -7,9 +7,10 @@ namespace StringCalculator.Tests
     public class StringCalculatorTests
     {
         [Fact]
-        public void Test1()
+        public void EmtpySequenceReturns0()
         {
-            
+            StringCalculator stringCalculator = new ("");
+            stringCalculator.Add().Should().Be(0);
         }
     }
 }
