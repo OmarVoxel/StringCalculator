@@ -11,7 +11,7 @@ namespace StringCalculator
 
         public int Add()
         {
-            
+            return 0;
         }
     } 
 }
