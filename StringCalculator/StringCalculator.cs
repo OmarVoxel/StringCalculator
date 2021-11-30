@@ -15,7 +15,7 @@ namespace StringCalculator
             if (string.IsNullOrEmpty(_sequence))
                 return 0;
             
-            return _sequence.Split(',').Sum(x => Int32.Parse(x));
+            return _sequence.Split(new char[] { '\n', ',' }).Sum(x => Int32.Parse(x));
         }
     } 
 }

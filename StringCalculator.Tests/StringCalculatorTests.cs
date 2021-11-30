@@ -38,7 +38,7 @@ namespace StringCalculator.Tests
         }
         
         [Theory]
-        [InlineData("1\n2,0", 2)]
+        [InlineData("1\n2,0", 3)]
         [InlineData("2,3\n3,0,1\n3", 12)]
         public void SequenceReturnsTheSumBetweenThemIgnoringCommaAndNewLines(string input, int output)
         {
