@@ -13,11 +13,16 @@ namespace StringCalculator.Tests
             stringCalculator.Add().Should().Be(0);
         }
         
-        [Fact]
-        public void SequenceReturns1()
+        [Theory]
+        [InlineData("1", 1)]
+        [InlineData("2", 2)]
+        [InlineData("3", 3)]
+        [InlineData("4", 4)]
+
+        public void SequenceReturns1(string input, int output)
         {
-            StringCalculator stringCalculator = new ("1");
-            stringCalculator.Add().Should().Be(1);
+            StringCalculator stringCalculator = new (input);
+            stringCalculator.Add().Should().Be(output, input);
         }
         
     }
