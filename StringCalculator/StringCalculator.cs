@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace StringCalculator
 {
@@ -11,10 +12,10 @@ namespace StringCalculator
 
         public int Add()
         {
-            if(!string.IsNullOrEmpty(_sequence))
-                return Int32.Parse(_sequence);
-
-            return 0;
+            if (string.IsNullOrEmpty(_sequence))
+                return 0;
+            
+            return _sequence.Split(',').Sum(x => Int32.Parse(x));
         }
     } 
 }
