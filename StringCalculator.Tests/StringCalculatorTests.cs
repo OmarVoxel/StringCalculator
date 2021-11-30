@@ -46,5 +46,6 @@ namespace StringCalculator.Tests
             stringCalculator.Add().Should().Be(output, input);
         }
         
+        
     }
 }
