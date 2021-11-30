@@ -7,6 +7,7 @@ namespace StringCalculator
     public class StringCalculator
     {
         private string _sequence;
+        private char _separator = ',';
 
         public StringCalculator(string sequence)
             => _sequence = sequence;
@@ -20,14 +21,13 @@ namespace StringCalculator
                 return 0;
 
             bool separatorExists = Regex.IsMatch(_sequence, @"^\/\/.\d");
-            char separator = ',';
 
             if (separatorExists) {
-                separator = _sequence[2];
+                _separator = _sequence[2];
                 _sequence = _sequence.Substring(3);
             }
             
-            return _sequence.Split(new char[] { '\n', separator }).Sum(x => Int32.Parse(x));
+            return _sequence.Split(new char[] { '\n', _separator }).Sum(x => Int32.Parse(x));
         }
     } 
 }
