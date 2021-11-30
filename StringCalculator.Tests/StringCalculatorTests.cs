@@ -12,5 +12,13 @@ namespace StringCalculator.Tests
             StringCalculator stringCalculator = new ("");
             stringCalculator.Add().Should().Be(0);
         }
+        
+        [Fact]
+        public void SequenceReturns1()
+        {
+            StringCalculator stringCalculator = new ("1");
+            stringCalculator.Add().Should().Be(1);
+        }
+        
     }
 }
