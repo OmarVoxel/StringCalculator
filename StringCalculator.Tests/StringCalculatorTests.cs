@@ -19,7 +19,7 @@ namespace StringCalculator.Tests
         [InlineData("3", 3)]
         [InlineData("4", 4)]
 
-        public void SequenceReturns1(string input, int output)
+        public void SequenceReturns(string input, int output)
         {
             StringCalculator stringCalculator = new (input);
             stringCalculator.Add().Should().Be(output, input);
