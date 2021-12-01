@@ -27,7 +27,7 @@ namespace StringCalculator
                 _separator = _sequence[2];
                 _sequence = _sequence.Substring(3);
             }
-            
+
             return _sequence.Split(new char[] { '\n', _separator }).Sum(x => Int32.Parse(x));
         }
     } 
