@@ -57,5 +57,12 @@ namespace StringCalculator.Tests
             stringCalculator.Add().Should().Be(output, input);
         }
         
+        [Fact]
+        public void NegativeNotAllowed()
+        {
+            StringCalculator stringCalculator = new ("//;-1;-1");
+            // stringCalculator.Add().Should().Throw<InvalidOperationException>() ???????????
+        }
+        
     }
 }

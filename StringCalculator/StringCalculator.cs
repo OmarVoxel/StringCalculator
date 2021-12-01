@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -19,6 +20,18 @@ namespace StringCalculator
 
             if (string.IsNullOrEmpty(_sequence))
                 return 0;
+
+            string[] negativeNumbers = _sequence.Split('-');
+            
+            if (negativeNumbers.Length > 0)
+            {
+                string messageException = "";
+                foreach (string number in negativeNumbers)
+                    messageException = (Int32.Parse(number) * -1).ToString();
+                
+                throw new Exception($"Negative(s) not allowed: {messageException}");
+            }
+                
 
             bool separatorExists = Regex.IsMatch(_sequence, @"^\/\/.\d");
 
