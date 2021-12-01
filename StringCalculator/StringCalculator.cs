@@ -28,6 +28,19 @@ namespace StringCalculator
                 _sequence = _sequence.Substring(3);
             }
 
+            if (_separator != '-')
+            {
+                Regex regex = new Regex(@"-\d+");
+                if (regex.IsMatch(_sequence))
+                {
+                    string message = regex.Matches(_sequence)
+                        .Select(match => match.Value)
+                        .Aggregate(( a, b ) => a + "," + b);
+                    
+                    throw new ArgumentException($"negatives not allowed {message}");
+                }
+            }
+            
             return _sequence.Split(new char[] { '\n', _separator }).Sum(x => Int32.Parse(x));
         }
     } 
