@@ -71,6 +71,13 @@ namespace StringCalculator.Tests
             Action foo = () => stringCalculator.Add();
             foo.Should().Throw<NegativeNotAllowed>().WithMessage(message);
         }
+
+        [Fact]
+        public void IgnoringNumbersGreaterThan1000()
+        {
+            StringCalculator stringCalculator = new ("//;1;1;3;1;34;1001;2000");
+            stringCalculator.Add().Should().Be(40);
+        }
         
     }
 }
