@@ -69,7 +69,7 @@ namespace StringCalculator.Tests
             StringCalculator stringCalculator = new (input);
             
             Action foo = () => stringCalculator.Add();
-            foo.Should().Throw<ArgumentException>().WithMessage(message);
+            foo.Should().Throw<NegativeNotAllowed>().WithMessage(message);
         }
         
     }

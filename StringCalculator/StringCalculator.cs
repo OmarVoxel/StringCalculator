@@ -16,8 +16,7 @@ namespace StringCalculator
         public int Add()
         {
             if (_sequence.IndexOf(",\n") != -1 || _sequence.IndexOf("\n,") != -1)
-                throw new Exception("Sequence not valid");
-
+                throw new SequenceNotValid("Sequence not valid");
             if (string.IsNullOrEmpty(_sequence))
                 return 0;
 
@@ -37,7 +36,7 @@ namespace StringCalculator
                         .Select(match => match.Value)
                         .Aggregate(( a, b ) => a + "," + b);
                     
-                    throw new ArgumentException($"negatives not allowed {message}");
+                    throw new NegativeNotAllowed($"negatives not allowed {message}");
                 }
             }
             
