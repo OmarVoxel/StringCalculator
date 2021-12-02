@@ -40,7 +40,9 @@ namespace StringCalculator
                 }
             }
             
-            return _sequence.Split(new char[] { '\n', _separator }).Sum(x => Int32.Parse(x));
+            return _sequence.Split(new char[] { '\n', _separator }).
+                Where(x => Int32.Parse(x) <= 1000 ).
+                Sum(x => Int32.Parse(x));
         }
     } 
 }
