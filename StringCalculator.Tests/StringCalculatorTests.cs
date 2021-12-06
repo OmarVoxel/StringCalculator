@@ -22,7 +22,7 @@ namespace StringCalculator.Tests
         public void SequenceReturns(string input, int output)
         {
             StringCalculator stringCalculator = new (input);
-            stringCalculator.Add().Should().Be(output, input);
+            stringCalculator.Add().Should().Be(output);
         }
         
         [Theory]
@@ -35,7 +35,7 @@ namespace StringCalculator.Tests
         public void SequenceReturnsTheSumBetweenThemIgnoringComma(string input, int output)
         {
             StringCalculator stringCalculator = new (input);
-            stringCalculator.Add().Should().Be(output, input);
+            stringCalculator.Add().Should().Be(output);
         }
         
         [Theory]
@@ -44,7 +44,7 @@ namespace StringCalculator.Tests
         public void SequenceReturnsTheSumBetweenThemIgnoringCommaAndNewLines(string input, int output)
         {
             StringCalculator stringCalculator = new (input);
-            stringCalculator.Add().Should().Be(output, input);
+            stringCalculator.Add().Should().Be(output);
         }
         
         [Theory]
@@ -55,7 +55,7 @@ namespace StringCalculator.Tests
         public void SequenceReturnsTheSumBetweenThemIgnoringTheCustomSeparator(string input, int output)
         {
             StringCalculator stringCalculator = new (input);
-            stringCalculator.Add().Should().Be(output, input);
+            stringCalculator.Add().Should().Be(output);
         }
         
         [Theory]
