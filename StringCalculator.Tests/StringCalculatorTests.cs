@@ -79,5 +79,12 @@ namespace StringCalculator.Tests
             stringCalculator.Add().Should().Be(40);
         }
         
+        [Fact]
+        public void AllowSeparatorWithMoreThanOneCharacter()
+        {
+            StringCalculator stringCalculator = new ("//[!!!]\n1!!!1!!!3!!!1!!!34!!!1001!!!2000");
+            stringCalculator.Add().Should().Be(40);
+        }
+        
     }
 }
