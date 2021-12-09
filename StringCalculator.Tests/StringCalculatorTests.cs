@@ -72,19 +72,24 @@ namespace StringCalculator.Tests
             foo.Should().Throw<NegativeNotAllowed>().WithMessage(message);
         }
 
-        [Fact]
-        public void IgnoringNumbersGreaterThan1000()
+        [Theory]
+        [InlineData("//;1;1;3;1;34;1001;2000", 40)]
+        [InlineData("//;1;1;3;10000;34;1001;2000;3000;44000", 39)]
+        [InlineData("//!1!2000!3!5!6\n8000!9000!1000", 1015)]
+        public void IgnoringNumbersGreaterThan1000(string input, int outpout)
         {
-            StringCalculator stringCalculator = new ("//;1;1;3;1;34;1001;2000");
-            stringCalculator.Add().Should().Be(40);
+            StringCalculator stringCalculator = new (input);
+            stringCalculator.Add().Should().Be(outpout);
         }
         
-        [Fact]
-        public void AllowSeparatorWithMoreThanOneCharacter()
+        [Theory]
+        [InlineData("//[!!!]\n1!!!1!!!3!!!1!!!34!!!1001!!!2000", 40)]
+        [InlineData("//[ss]\n1ss1ss3ss1ss34ss1001ss2000", 40)]
+        [InlineData("//[ss124!1]\n1ss124!11ss124!13ss124!11ss124!134ss124!11001ss124!12000", 40)]
+        public void AllowSeparatorWithMoreThanOneCharacter(string input, int output)
         {
-            StringCalculator stringCalculator = new ("//[!!!]\n1!!!1!!!3!!!1!!!34!!!1001!!!2000");
-            stringCalculator.Add().Should().Be(40);
+            StringCalculator stringCalculator = new (input);
+            stringCalculator.Add().Should().Be(output);
         }
-        
     }
 }
