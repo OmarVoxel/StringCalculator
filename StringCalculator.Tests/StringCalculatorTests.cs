@@ -91,5 +91,13 @@ namespace StringCalculator.Tests
             StringCalculator stringCalculator = new (input);
             stringCalculator.Add().Should().Be(output);
         }
+
+        [Fact]
+        public void AllowMultiplesDelimiters()
+        {
+            StringCalculator stringCalculator = new("//[*][%]\n1*2%3”");
+            stringCalculator.Add().Should().Be(6);
+            
+        }
     }
 }
