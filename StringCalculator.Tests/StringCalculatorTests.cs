@@ -92,12 +92,23 @@ namespace StringCalculator.Tests
             stringCalculator.Add().Should().Be(output);
         }
 
-        [Fact]
-        public void AllowMultiplesDelimiters()
+        [Theory]
+        [InlineData("//[*][%]\n1*2%3", 6)]
+        [InlineData("//[!][{]\n1!2{3!1", 7)]
+        [InlineData("//[=][w]\n1=2w3=3w2=2", 13)]
+        public void AllowMultiplesDelimiters(string input, int output)
         {
-            StringCalculator stringCalculator = new("//[*][%]\n1*2%3");
-            stringCalculator.Add().Should().Be(6);
-            
+            StringCalculator stringCalculator = new(input);
+            stringCalculator.Add().Should().Be(output);
+        }
+        
+        [Theory]
+        [InlineData("//[$$$#][!!!]\n1$$$#2!!!3", 6)]
+        [InlineData("//[!!][%&]\n1!!2%&3%&3", 9)]
+        public void AllowMultiplesDelimitersWithLengthLongerThanOneChar(string input, int output)
+        {
+            StringCalculator stringCalculator = new(input);
+            stringCalculator.Add().Should().Be(output);
         }
     }
 }
