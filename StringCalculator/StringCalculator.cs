@@ -9,49 +9,51 @@ namespace StringCalculator
     public class StringCalculator
     {
         private string _sequence;
-        private List<string> _separator = new List<string>() { "\n" , ","} ;
+        private readonly List<string> _separator = new List<string>() { "\n" , ","} ;
 
         public StringCalculator(string sequence)
             => _sequence = sequence;
 
         public int Add()
         {
-            if (_sequence.IndexOf(",\n") != -1 || _sequence.IndexOf("\n,") != -1)
+            if (_sequence.IndexOf(",\n", StringComparison.Ordinal) != -1 || 
+                _sequence.IndexOf("\n,", StringComparison.Ordinal) != -1)
                 throw new SequenceNotValid("Sequence not valid");
             
             if (string.IsNullOrEmpty(_sequence))
                 return 0;
 
-            bool separatorExists = Regex.IsMatch(_sequence, @"^\/\/.\d");
-            bool longSeparator = _sequence.IndexOf('[') != -1 && _sequence.IndexOf(']') != -1;
-
-            if (longSeparator)
-            {
-                Regex regex = new Regex(@"\[(.*?)\]");
-                foreach (Match match in regex.Matches(_sequence))
-                {
-                    _separator.Add(match.Groups[1].Value);
-                }
-
-                _sequence = _sequence.Substring(_sequence.IndexOf("\n") );
+            bool isCustomSeparator = Regex.IsMatch(_sequence, @"^\/\/.\d");
+            
+            if (isCustomSeparator) {
+                _separator.Add(_sequence[2].ToString());
+                _sequence = _sequence[3..];
             }
             
-            if (separatorExists) {
-                _separator.Add(_sequence[2].ToString());
-                _sequence = _sequence.Substring(3);
-            }
-
-            if (!_separator.Contains("-"))
+            Regex containsDelimitersInBrackets = new Regex(@"\[(.*?)\]");
+            bool isLongSeparator = containsDelimitersInBrackets.IsMatch(_sequence);
+            
+            if (isLongSeparator)
             {
-                Regex regex = new Regex(@"-\d+");
-                if (regex.IsMatch(_sequence))
-                {
-                    string message = regex.Matches(_sequence)
-                        .Select(match => match.Value)
-                        .Aggregate(( a, b ) => a + "," + b);
+                _separator.AddRange(containsDelimitersInBrackets
+                    .Matches(_sequence)
+                    .Cast<Match>()
+                    .Select(x => x.Groups[1].Value)
+                );
+                
+                _sequence = _sequence[_sequence.IndexOf("\n", StringComparison.Ordinal)..];
+            }
+            
+            Regex negativeNumbers = new Regex(@"-\d+");
+            bool containsNegativeNumbers = negativeNumbers.IsMatch(_sequence);
+            
+            if (containsNegativeNumbers)
+            {
+                string message = negativeNumbers.Matches(_sequence)
+                    .Select(match => match.Value)
+                    .Aggregate(( a, b ) => a + "," + b);
                     
-                    throw new NegativeNotAllowed($"negatives not allowed {message}");
-                }
+                throw new NegativeNotAllowed($"negatives not allowed {message}");
             }
             
             return _sequence.Split(_separator.ToArray(), StringSplitOptions.RemoveEmptyEntries).
