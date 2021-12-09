@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,7 +9,7 @@ namespace StringCalculator
     public class StringCalculator
     {
         private string _sequence;
-        private string _separator = ",";
+        private List<string> _separator = new List<string>() { "\n" , ","} ;
 
         public StringCalculator(string sequence)
             => _sequence = sequence;
@@ -29,18 +30,18 @@ namespace StringCalculator
                 Regex regex = new Regex(@"\[(.*?)\]");
                 foreach (Match match in regex.Matches(_sequence))
                 {
-                    _separator = match.Groups[1].Value;
+                    _separator.Add(match.Groups[1].Value);
                 }
 
-                _sequence = _sequence.Substring(4 + _separator.Length);
+                _sequence = _sequence.Substring(_sequence.IndexOf("\n") );
             }
             
             if (separatorExists) {
-                _separator = _sequence[2].ToString();
+                _separator.Add(_sequence[2].ToString());
                 _sequence = _sequence.Substring(3);
             }
 
-            if (_separator != "-")
+            if (!_separator.Contains("-"))
             {
                 Regex regex = new Regex(@"-\d+");
                 if (regex.IsMatch(_sequence))
@@ -52,8 +53,8 @@ namespace StringCalculator
                     throw new NegativeNotAllowed($"negatives not allowed {message}");
                 }
             }
-
-            return _sequence.Split(new string[] { "\n", _separator}, StringSplitOptions.RemoveEmptyEntries).
+            
+            return _sequence.Split(_separator.ToArray(), StringSplitOptions.RemoveEmptyEntries).
                 Where(x => Int32.Parse(x) <= 1000 ).
                 Sum(x => Int32.Parse(x));
         }

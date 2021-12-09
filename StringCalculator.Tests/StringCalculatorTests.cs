@@ -95,7 +95,7 @@ namespace StringCalculator.Tests
         [Fact]
         public void AllowMultiplesDelimiters()
         {
-            StringCalculator stringCalculator = new("//[*][%]\n1*2%3”");
+            StringCalculator stringCalculator = new("//[*][%]\n1*2%3");
             stringCalculator.Add().Should().Be(6);
             
         }
